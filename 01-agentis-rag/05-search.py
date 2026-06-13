@@ -46,8 +46,10 @@ def search(question, course="llm-zoomcamp"):
     )
 
 
-search(question)
+search_results = search(question)
 
 
 def rag(question):
     search_results = search(question)
+    user_prompt = build_prompt(question, search_results)
+    return llm(user_prompt)

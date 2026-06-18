@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 from openai import OpenAI
 from minsearch import Index
+from pprint import pprint
 
 load_dotenv()
 
@@ -23,7 +24,6 @@ for course in courses_raw:
 
     documents.extend(course_data)
 
-from pprint import pprint
 
 pprint(documents[1111])
 
@@ -48,8 +48,8 @@ def search(question, course="llm-zoomcamp"):
     )
 
 
-question = "I just discovered the course. Can I join now?"
-search_results = search(question)
+# question = "I just discovered the course. Can I join now?"
+# search_results = search(question)
 
 INSTRUCTIONS = """
 Your task is to answer questions from the course participants
@@ -89,28 +89,39 @@ def build_prompt(question, search_results):
     return prompt.strip()
 
 
-prompt = build_prompt(question, search_results)
-
-pprint(prompt)
+# prompt = build_prompt(question, search_results)
+# pprint(prompt)
 
 openai_client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 
-# response = openai_client.models.list()
+
 # print(response.model_dump_json(indent=2))
 
 
-def llm(prompt):
-    response = openai_client.responses.create(model="gpt-5.4-mini", input=prompt)
+def llm(instructions, user_prompt, model="gpt-5.4-mini"):
+    message_history = [
+        {"role": "developer", "content": INSTRUCTIONS},
+        {"role": "user", "content": user_prompt},
+    ]
+    response = openai_client.responses.create(model="gpt-5.4-mini", input=message_history)
     return response.output_text
 
 
-def rag(question):
-    search_results = search(question)
-    user_prompt = build_prompt(question, search_results)
-    return llm(user_prompt)
+def rag(query, model="gpt-5.4-mini"):
+    search_results = search(query)
+    prompt = build_prompt(query, search_results)
+    answer = llm(INSTRUCTIONS, prompt, model=model)
+    return answer
 
 
-llm(prompt)
+rag("can i join in 2028?")
+
+# response.output_text
+# print(response.model_dump_json(indent=2))
+
+# input_price = 0.75 / 1_000_000
+# output_price = 4.5 / 1_000_000
+# cost = response.usage.input_tokens * input_price + response.usage.output_tokens * output_price

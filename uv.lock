@@ -504,6 +504,7 @@ dependencies = [
     { name = "openai" },
     { name = "python-dotenv" },
     { name = "requests" },
+    { name = "sqlitesearch" },
 ]
 
 [package.metadata]
@@ -514,6 +515,7 @@ requires-dist = [
     { name = "openai", specifier = ">=2.41.0" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "requests", specifier = ">=2.34.2" },
+    { name = "sqlitesearch", specifier = ">=0.1.1" },
 ]
 
 [[package]]
@@ -1092,6 +1094,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/a2/87/a6771e1546d97e7e041b6ae58d80074f81b7d5121207425c964ddf5cfdbd/sniffio-1.3.1.tar.gz", hash = "sha256:f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc", size = 20372, upload-time = "2024-02-25T23:20:04.057Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e9/44/75a9c9421471a6c4805dbf2356f7c181a29c1879239abab1ea2cc8f38b40/sniffio-1.3.1-py3-none-any.whl", hash = "sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2", size = 10235, upload-time = "2024-02-25T23:20:01.196Z" },
+]
+
+[[package]]
+name = "sqlitesearch"
+version = "0.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b9/e7/081754e946c86db7aaaacdbc7f38e7a199049a2926b04d198c01fd88e730/sqlitesearch-0.1.1.tar.gz", hash = "sha256:375ad5c166621bb9f1ad7fc41449b50ca5c6f0c97b3764fea1d86d4b52777dc2", size = 262202, upload-time = "2026-06-18T11:56:01.108Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/94/80/2eea3d3318d805c53def995f909fb652a716a769635a1eb3725eb3c96176/sqlitesearch-0.1.1-py3-none-any.whl", hash = "sha256:0a56c78683e48bebb99ea59abc9ac9d96c86ae6b6b9ce0dd37487ff5105acef7", size = 40547, upload-time = "2026-06-18T11:55:59.841Z" },
 ]
 
 [[package]]

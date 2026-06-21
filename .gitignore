@@ -9,3 +9,6 @@ wheels/
 # Virtual environments
 .venv
 .env
+faq.db*
+*db-shm
+*db-wal

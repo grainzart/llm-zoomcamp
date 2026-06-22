@@ -1,78 +1,3 @@
-messages = [{"role": "user", "content": "I just discovered the course. Can I join it?"}]
-
-
-from sqlitesearch import TextSearchIndex
-
-sqlite_index = TextSearchIndex(
-    text_fields=["question", "section", "answer"],
-    keyword_fields=["course"],
-    db_path="faq.db",
-)
-
-
-def search(query):
-    boost_dict = {"question": 3.0, "section": 0.5}
-    filter_dict = {"course": "llm-zoomcamp"}
-
-    return sqlite_index.search(
-        query,
-        num_results=5,
-        boost_dict=boost_dict,
-        filter_dict=filter_dict,
-    )
-
-
-search("I just discovered the course. Can I join it?")
-
-search_tool = {
-    "type": "function",
-    "name": "search",
-    "description": "Search the FAQ database for entries matching the given query.",
-    "parameters": {
-        "type": "object",
-        "properties": {"query": {"type": "string", "description": "Search query text to look up in the course FAQ."}},
-        "required": ["query"],
-        "additionalProperties": False,
-    },
-}
-
-response = openai_client.responses.create(
-    model="gpt-5.4-mini",
-    input=messages,
-    tools=[search_tool],
-)
-
-response.output
-import json, pprint
-
-call = response.output[0]
-args = json.loads(call.arguments)
-
-results = search(**args)
-result_json = json.dumps(results, indent=2)
-pprint.pprint(result_json)
-
-messages.extend(response.output)
-
-messages.append({
-    "type": "function_call_output",
-    "call_id": call.call_id,
-    "output": result_json,
-})
-
-response = openai_client.responses.create(
-    model="gpt-5.4-mini",
-    input=messages,
-    tools=[search_tool],
-)
-
-response.output_text
-
-usage = response.usage
-usage.input_tokens, usage.output_tokens
-
-
-# ======================
 from rag_helper import RAGBase
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -128,13 +53,6 @@ def make_call(call):
         "output": result_json,
     }
 
-
-# question = "I just discovered the course. Can I join it?"
-
-# messages = [
-#     {"role": "developer", "content": instructions},
-#     {"role": "user", "content": question},
-# ]
 
 search_tool = {
     "type": "function",
@@ -197,6 +115,6 @@ def agent_loop(instructions, question, model="gpt-5.4-mini") -> str:
     return last_answer
 
 
-agent_loop(instructions, "How do I run Olama locally?")
+# agent_loop(instructions, "How do I run Olama locally?")
 agent_loop(instructions, "what's queen gambit?")
-agent_loop(instructions, "I just discovered the course. Can I still join it?")
+# agent_loop(instructions, "I just discovered the course. Can I still join it?")

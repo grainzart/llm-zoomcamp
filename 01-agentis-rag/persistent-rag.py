@@ -12,9 +12,7 @@ os.getcwd()
 
 print(sqlite_index.count())
 
-results = sqlite_index.search(
-    "Can I still join the course after it started?", num_results=99
-)
+results = sqlite_index.search("Can I still join the course after it started?", num_results=99)
 
 [doc["question"] for doc in results]
 
@@ -35,7 +33,7 @@ assistant = RAGBase(
     llm_client=openai_client,
 )
 
-answer = assistant.rag("Can I still join the course after it started?")
+answer = assistant.rag("Can i connect olama?")
 print(answer)
 
 sqlite_index.close()

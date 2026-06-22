@@ -1,7 +1,7 @@
 from rag_helper import RAGBase
 from openai import OpenAI
 from dotenv import load_dotenv
-
+import os
 
 openai_client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
@@ -14,7 +14,6 @@ load_dotenv()
 messages = [{"role": "user", "content": "I just discovered the course. Can I join it?"}]
 
 
-response.output_text
 from sqlitesearch import TextSearchIndex
 
 sqlite_index = TextSearchIndex(

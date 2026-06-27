@@ -10,5 +10,4 @@ wheels/
 .venv
 .env
 faq.db*
-*db-shm
-*db-wal
+*.db*

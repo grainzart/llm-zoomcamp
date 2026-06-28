@@ -6,6 +6,9 @@ from minsearch import Index
 def load_faq_data():
     docs_url = "https://datatalks.club/faq/json/courses.json"
     response = requests.get(docs_url)
+    # headers = {
+    # 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+    # response = requests.get(docs_url, headers=headers)
     courses_raw = response.json()
 
     documents = []
